@@ -1,0 +1,56 @@
+﻿@model Киберфорум.Models.Article
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<h2 class="active" style="margin-top:40px;">@Html.DisplayFor(model => model.Title)</h2>
+
+<div>
+    <h5>@Html.DisplayFor(model => model._Text)</h5>
+</div>
+@if (Model.UserId != 1)
+{
+    <h6>Автор: @Html.DisplayFor(model => model.User._Name)</h6>
+}
+<div>
+    <h4>
+        Комментарии @if (Model.Comments.Count > 0)
+        {<span>(@Html.DisplayFor(model => model.Comments.Count))</span>}
+    </h4> 
+    <INPUT id="add" TYPE="BUTTON" VALUE="Написать комментарий" class="btn btn-dark">
+    <form id="addComment" asp-action="CreateCom" asp-controller="Home" asp-route-id="@Model.Id" style="display:none">
+        <div class="form-group">
+            <input type="text" name="com" class="form-control"/>
+        </div>
+        <input type="submit" value="Опубликовать" class="btn btn-dark" />
+        <input id="cancel" type="button" value="Отменить" class="btn btn-dark" />
+    </form>
+    <table class="table">
+        @if (Model.Comments.Count > 0)
+        {
+            foreach (var comment in Model.Comments)
+            {
+                <tr><td>@comment.User._Name</td><td>@comment._Text</td></tr>
+            }
+        }
+        else
+        {
+            <tr><td>Комментариев нет</td></tr>
+        }
+    </table>
+    <script>
+        var add = document.getElementById("add");
+        var form = document.getElementById("addComment");
+        var cancel = document.getElementById("cancel");
+        add.onclick = function () {
+            form.style.display = "block";
+        }
+        cancel.onclick = function () {
+            form.style.display = "none";
+        }
+    </script>
+</div>
+<br />
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-dark">На главную</a>
+</div>

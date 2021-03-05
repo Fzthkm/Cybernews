@@ -1,0 +1,320 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+body {
+    margin: auto;
+    padding: 0;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: #141114;
+    background-image: linear-gradient(335deg, black 23px, transparent 23px), linear-gradient(155deg, black 23px, transparent 23px), linear-gradient(335deg, black 23px, transparent 23px), linear-gradient(155deg, black 23px, transparent 23px);
+    background-size: 58px 58px;
+    background-position: 0px 2px, 4px 35px, 29px 31px, 34px 6px;
+    color: #ffe6ff;
+}
+
+
+/*Стиль для хэдера*/
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    header .header__logo {
+        margin-left: 70px;
+        width: 10%;
+        padding-left: 20px;
+        font-size: 40px;
+        font-family: "Neucha", cursive;
+        text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd, -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd, 0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+        animation: shine 2s forwards, flicker 10s infinite;
+    }
+
+    .header .header__menu {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        header .header__menu a {
+            margin: 10px;
+            font-size: 25px;
+            text-decoration: none;
+            color: #ffe6ff;
+        }
+
+/*Стиль для основного контента*/
+.content {
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+    .content .left-sidebar {
+        margin-right: 15px;
+        width: 15%;
+        display: flex;
+        flex-direction: column;
+        background: rgba(0,0,0,0.85);
+    }
+
+    .content a {
+        text-decoration: none;
+        color: #ffe6ff;
+    }
+
+        .content a:hover {
+            text-decoration: none;
+            text-shadow: 0 0 2px #ffe6ff, 0 0 10px #ff65bd, 0 0 4px #ff65bd, 0 0 7px #ff65bd, 0 0 11px #ff2483, 0 0 16px #ff2483;
+            color: #ffe6ff;
+        }
+
+    .content .content__news {
+        margin-right: 15px;
+        height: 500px;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0,0,0,0.85);
+    }
+
+
+        .content .content__news .news__title {
+            padding-top: 20px;
+            font-size: 35px;
+        }
+
+        .content .content__news .news__text {
+            font-size: 20px;
+        }
+
+        .content .content__news .news__inform {
+            margin: 5px;
+            display: flex;
+            justify-content: end;
+        }
+
+    .content .content__chat {
+        width: 15%;
+        display: flex;
+        flex-direction: column;
+        background: rgba(0,0,0,0.85);
+    }
+/*Анимация мерцания для лого*/
+@keyframes blink {
+    0%, 22%, 36%, 75% {
+        color: #ffe6ff;
+        text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd, -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd, 0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+    }
+
+    28%, 33% {
+        color: #ff65bd;
+        text-shadow: none;
+    }
+
+    82%, 97% {
+        color: #ff2483;
+        text-shadow: none;
+    }
+}
+
+.flicker {
+    animation: shine 2s forwards, blink 3s 2s infinite;
+}
+
+.fast-flicker {
+    animation: shine 2s forwards, blink 10s 1s infinite;
+}
+
+@keyframes shine {
+    0% {
+        color: #6b1839;
+        text-shadow: none;
+    }
+
+    100% {
+        color: #ffe6ff;
+        text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd, -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd, 0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+    }
+}
+
+@keyframes flicker {
+    from {
+        opacity: 1;
+    }
+
+    4% {
+        opacity: 0.9;
+    }
+
+    6% {
+        opacity: 0.85;
+    }
+
+    8% {
+        opacity: 0.95;
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    11% {
+        opacity: 0.922;
+    }
+
+    12% {
+        opacity: 0.9;
+    }
+
+    14% {
+        opacity: 0.95;
+    }
+
+    16% {
+        opacity: 0.98;
+    }
+
+    17% {
+        opacity: 0.9;
+    }
+
+    19% {
+        opacity: 0.93;
+    }
+
+    20% {
+        opacity: 0.99;
+    }
+
+    24% {
+        opacity: 1;
+    }
+
+    26% {
+        opacity: 0.94;
+    }
+
+    28% {
+        opacity: 0.98;
+    }
+
+    37% {
+        opacity: 0.93;
+    }
+
+    38% {
+        opacity: 0.5;
+    }
+
+    39% {
+        opacity: 0.96;
+    }
+
+    42% {
+        opacity: 1;
+    }
+
+    44% {
+        opacity: 0.97;
+    }
+
+    46% {
+        opacity: 0.94;
+    }
+
+    56% {
+        opacity: 0.9;
+    }
+
+    58% {
+        opacity: 0.9;
+    }
+
+    60% {
+        opacity: 0.99;
+    }
+
+    68% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 0.9;
+    }
+
+    72% {
+        opacity: 0.95;
+    }
+
+    93% {
+        opacity: 0.93;
+    }
+
+    95% {
+        opacity: 0.95;
+    }
+
+    97% {
+        opacity: 0.93;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/*Анимация для кнопок*/
+header a:hover {
+    text-shadow: 0 0 2px #ffe6ff, 0 0 10px #ff65bd, 0 0 4px #ff65bd, 0 0 7px #ff65bd, 0 0 11px #ff2483, 0 0 16px #ff2483;
+}
+
+/*Стиль для кнопки активной страницы*/
+.active {
+    text-shadow: 0 0 2px #ffe6ff, 0 0 10px #ff65bd, 0 0 4px #ff65bd, 0 0 7px #ff65bd, 0 0 11px #ff2483, 0 0 16px #ff2483;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.container a {
+    text-decoration: none;
+    color: #ffe6ff;
+}
+
+.container a:hover {
+    text-decoration: none;
+    text-shadow: 0 0 2px #ffe6ff, 0 0 10px #ff65bd, 0 0 4px #ff65bd, 0 0 7px #ff65bd, 0 0 11px #ff2483, 0 0 16px #ff2483;
+    color: #ffe6ff;
+}
+
+.table {
+    color: #ffe6ff;
+}
+.navbar-nav{
+    width:100%;
+    flex-direction:row;
+}

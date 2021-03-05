@@ -1,0 +1,267 @@
+﻿@model Киберфорум.Models.User
+
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<h1>Личный кабинет</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Логин
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model._Username)
+        </dd>
+        <dt class="col-sm-2">
+            Имя
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model._Name)
+        </dd>
+        <dt class="col-sm-2">
+            Тип учётной записи
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Role.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h1>Список новостей</h1>
+    @if (Model.Articles.Count == 0)
+    {
+        <span>Список авторских новостей пусть </span>
+    }
+    else if (Model.Articles.Count <= 10)
+    {
+        <h4>Название</h4>
+        @for (int i = Model.Articles.Count - 1; i >= 0; i--)
+        {
+            <dl>
+                <dd>
+                    <a asp-action="Details" asp-controller="Home" asp-route-id="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+                </dd>
+            </dl>
+        }
+    }
+    else
+    {
+        <div id="last10">
+            <h4>Последние 10 новостей</h4>
+            @for (int i = Model.Articles.Count - 1; i >= Model.Articles.Count - 10; i--)
+            {
+                <dl>
+                    <dd>
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+                    </dd>
+                </dl>
+            }
+
+            <input class="btn btn-outline-dark" id="show" type="button" value="Показать все новости" />
+        </div>
+        <div id="allArticles" style="display:none">
+            <h4>Список всех новостей</h4>
+            @for (int i = Model.Articles.Count - 1; i > 0; i--)
+            {
+                <dl>
+                    <dd>
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@Model.Articles[i].Id">@Model.Articles[i].Title</a>
+                    </dd>
+                </dl>
+            }
+            <input class="btn btn-outline-dark" id="cancel" type="button" value="Показать 10 последних" />
+        </div>
+        <script>
+            var allArticles = document.getElementById("allArticles");
+            var last10 = document.getElementById("last10");
+            var cancel = document.getElementById("cancel");
+            var show = document.getElementById("show");
+            show.onclick = function () {
+                allArticles.style.display = "block";
+                last10.style.display = "none";
+            }
+            cancel.onclick = function () {
+                allArticles.style.display = "none";
+                last10.style.display = "block";
+            }
+        </script>
+    }
+</div>
+<div>
+    <h1>Список комментариев</h1>
+    @if (Model.Comments.Count == 0)
+    {
+        <span>Список комментариев пуст </span>
+    }
+    else if (Model.Comments.Count <= 10)
+    {
+        <h4>Последние комментарии</h4>
+        <table class="table">
+            <tr><td>Статья</td><td>Комментарий</td></tr>
+            @for (int i = Model.Comments.Count - 1; i >= 0; i--)
+            {
+                <tr>
+                    <td>
+                        @Model.Comments[i].Article.Title
+                    </td>
+                    <td>
+
+                        @Model.Comments[i]._Text
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div id="last10com">
+            <h4>Последние 10 комментариев</h4>
+            <table class="table">
+                <tr><td>Статья</td><td>Комментарий</td></tr>
+                @for (int i = Model.Comments.Count - 1; i >= Model.Comments.Count - 10; i--)
+                {
+                    <tr>
+                        <td>
+                            @Model.Comments[i].Article.Title
+                        </td>
+                        <td>
+                            @Model.Comments[i]._Text
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <input class="btn btn-outline-dark" id="showCom" type="button" value="Показать все комментарии" />
+        </div>
+        <div id="allComments" style="display:none">
+            <h4>Список всех комментариев</h4>
+
+            <table class="table">
+                @for (int i = Model.Comments.Count - 1; i >= 0; i--)
+                {
+                    <tr>
+                        <td>
+                            @Model.Comments[i].Article.Title
+                        </td>
+                        <td>
+                            @Model.Comments[i]._Text
+                        </td>
+                    </tr>
+                }
+            </table>
+            <input class="btn btn-outline-dark" id="cancelCom" type="button" value="Показать 10 последних" />
+        </div>
+
+        <script>
+            var allComments = document.getElementById("allComments");
+            var last10com = document.getElementById("last10com");
+            var cancelC = document.getElementById("cancelCom");
+            var showC = document.getElementById("showCom");
+            showC.onclick = function () {
+                allComments.style.display = "block";
+                last10com.style.display = "none";
+            }
+            cancelC.onclick = function () {
+                allComments.style.display = "none";
+                last10com.style.display = "block";
+            }
+        </script>
+    }
+</div>
+@*Отзывы*@
+<div>
+    <h1>Список отзывов</h1>
+    @if (Model.Reviews.Count == 0)
+    {
+        <span>Список отзывов пуст </span>
+    }
+    else if (Model.Reviews.Count <= 10)
+    {
+        <h4>Последние отзывы</h4>
+        <table class="table">
+            <tr><td>Товар</td><td>Отзыв</td><td>Оценка</td></tr>
+            @for (int i = Model.Reviews.Count - 1; i >= 0; i--)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Store" asp-action="Details" asp-route-id="@Model.Reviews[i].StuffId">@Model.Reviews[i].Stuff._Name</a>
+                    </td>
+                    <td>
+                        @Model.Reviews[i]._Text
+                    </td>
+                    <td>
+                        @Model.Reviews[i].Rate
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div id="last10com">
+            <h4>Последние 10 отзывов</h4>
+            <table class="table">
+                <tr><td>Статья</td><td>Комментарий</td></tr>
+                @for (int i = Model.Reviews.Count - 1; i >= Model.Reviews.Count - 10; i--)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Store" asp-action="Details" asp-route-id="@Model.Reviews[i].StuffId">@Model.Reviews[i].Stuff._Name</a>
+                        </td>
+                        <td>
+                            @Model.Reviews[i]._Text
+                        </td>
+                        <td>
+                            @Model.Reviews[i].Rate
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <input class="btn btn-outline-dark" id="showReview" type="button" value="Показать все комментарии" />
+        </div>
+        <div id="allReviews" style="display:none">
+            <h4>Список всех отзывов</h4>
+
+            <table class="table">
+                @for (int i = Model.Reviews.Count - 1; i >= 0; i--)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Store" asp-action="Details" asp-route-id="@Model.Reviews[i].StuffId">@Model.Reviews[i].Stuff._Name</a>
+                        </td>
+                        <td>
+                            @Model.Reviews[i]._Text
+                        </td>
+                        <td>
+                            @Model.Reviews[i].Rate
+                        </td>
+                    </tr>
+                }
+            </table>
+            <input class="btn btn-outline-dark" id="cancelReview" type="button" value="Показать 10 последних" />
+        </div>
+
+        <script>
+            var allReviews = document.getElementById("allReviews");
+            var last10r = document.getElementById("last10r");
+            var cancelReview = document.getElementById("cancelReview");
+            var showReview = document.getElementById("showReview");
+            showReview.onclick = function () {
+                allReviews.style.display = "block";
+                last10r.style.display = "none";
+            }
+            cancelReview.onclick = function () {
+                allReviews.style.display = "none";
+                last10r.style.display = "block";
+            }
+        </script>
+    }
+</div>
+
+<br />
+<a class="btn btn-dark" asp-controller="Home" asp-action="Index">
+    <i class="glyphicon glyphicon-chevron-right">На главную</i> 
+</a>

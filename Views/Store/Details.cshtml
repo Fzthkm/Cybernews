@@ -1,0 +1,131 @@
+﻿@model Киберфорум.Models.Stuff
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Товар</h4>
+    <img src="/img/stuff/@Model.ImageUrl" style="width:250px;height:250px;" />
+    <hr />
+    Основная информация
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Название
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model._Name)
+        </dd>
+        <dt class="col-sm-2">
+            Стоимость
+        </dt>
+        <dd class="col-sm-10">
+            $@Html.DisplayFor(model => model._Cost)
+        </dd>
+        <dt class="col-sm-2">
+            Производитель
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Firm)
+        </dd>
+    </dl>
+    <hr />
+    Дополнительная информация
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Описание
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt class="col-sm-2">
+            Размер
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+        <dt class="col-sm-2">
+            Цвет
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+    </dl>
+    <hr />
+    Отзывы (@Model.Reviews.Count)
+    @if (User.Identity.IsAuthenticated)
+    {
+        <input type="button" id="add" class="btn btn-dark" value="Написать отзыв">}
+    <hr />
+    <form id="addReview" asp-action="Create" asp-controller="Reviews" asp-route-id="@Model.Id"  method="post" enctype="multipart/form-data" style="display:none;">
+        <div class="form-group">
+            <label class="control-label">Текст</label>
+            <textarea name="_text" rows="3" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Оценка</label><br />
+            <input name="rate" type="number" max="5" min="1" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Отправить" class="btn btn-dark" />
+            <input type="button" id="cancel" value="Отмена" class="btn btn-dark" >
+        </div>
+    </form>
+    <script>
+        var add = document.getElementById("add");
+        var form = document.getElementById("addReview");
+        var cancel = document.getElementById("cancel");
+        add.onclick = function () {
+            form .style.display = "block";
+        }
+        cancel.onclick = function () {
+            form .style.display = "none";
+        }
+    </script>
+    @if (Model.Reviews.Count > 0)
+    {
+        <table class="table" style="text-align:center;">
+            <tr>
+                <td>Имя пользователя</td>
+                <td class="col-sm-6">Текст</td>
+                <td class="col-sm-2">Оценка</td>
+            </tr>
+            @foreach (Review review in Model.Reviews)
+            {
+                <tr>
+                    <td>
+                        @review.User._Name
+                    </td>
+                    <td>
+                        @review._Text
+                    </td>
+                    <td>
+                        @review.Rate
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <h6>Отзывов нет</h6>
+    }
+</div>
+
+<div style="text-align:center;">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-action="AddToCard" asp-controller="Store" asp-route-id="@Model.Id" class="btn btn-dark">Добавить в корзину</a>
+        <span> | </span>
+    }
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-dark">Редактировать</a>
+        <span> | </span>
+    }
+    <a asp-action="Index" class="btn btn-dark">Вернуться к выбору товара</a>
+</div>

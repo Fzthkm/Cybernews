@@ -1,0 +1,78 @@
+﻿@model Киберфорум.Models.Stuff
+
+@{
+    ViewData["Title"] = "Редактировать";
+}
+
+<h1 style="text-align:center;">Редактировать</h1>
+
+<hr />
+
+<div class="row" style="justify-content:center;">
+    <div class="col-md-4">
+        <form asp-action="Edit" style="text-align:center;">
+            <hr />
+                <h4 style="text-align:center;">Основная информация</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label class="control-label">Название</label>
+                <input asp-for="_Name" class="form-control" />
+                <span asp-validation-for="_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Стоимость</label>
+                <input asp-for="_Cost" class="form-control" />
+                <span asp-validation-for="_Cost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Тип</label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Производитель</label>
+                <input asp-for="Firm" class="form-control" />
+                <span asp-validation-for="Firm" class="text-danger"></span>
+            </div>
+            <hr />
+                <h4 style="text-align:center;">Дополнительная информация</h4>
+            <hr />
+            <div class="form-group">
+                <label class="control-label">Описание</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Цвет</label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Имя файла на сервере</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Тип</label>
+                <input asp-for="Size" class="form-control" />
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-dark">Вернуться к списку товаров</a> |
+                <input type="submit" value="Сохранить" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

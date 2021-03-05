@@ -1,0 +1,41 @@
+﻿@model Киберфорум.Models.User
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<h1>Личный кабинет</h1>
+
+<div>
+    <h4>Основные данные</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model._Username)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model._Username)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model._Password)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model._Password)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model._Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model._Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Role.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <a asp-controller="Home" asp-action="Index" class="btn btn-dark">На главную</a>
+</div>

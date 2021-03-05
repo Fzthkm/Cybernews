@@ -1,0 +1,21 @@
+﻿@model Киберфорум.Models.Article
+@{
+    ViewBag.Title = "Добавление статьи";
+}
+<form asp-action="Create" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="control-label">Заголовок</label>
+        <input type="text" name="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Текст</label>
+        <textarea name="_Text" rows="10" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Адрес изображения, находящегося на сервере</label><br/>
+        <input asp-for="ImageUrl" type="text" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-dark" />
+    </div>
+</form>

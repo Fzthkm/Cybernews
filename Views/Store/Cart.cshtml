@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Киберфорум.Models.Order>
+
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<h1>Корзина</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Товар
+            </th>
+            <th>
+                Стоимость, $
+            </th>
+            <th>
+                Количество
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stuff._Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stuff._Cost)
+                </td>
+                <td>
+                    <form asp-controller="Account" asp-action="Update" asp-route-id="@item.Id">
+                        <input style="width:40px;" name="count" type="number" value="@item._Count">
+                        <input type="image" src="~/img/btnImage/save.png" style="width:15px; height:15px" />
+                    </form>
+                </td>
+                <td>
+                    <a asp-controller="Account" asp-action="Delete" asp-route-id="@item.Id"><img src="~/img/btnImage/cancel.png" style="width:15px; height:15px" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<a href="#" class="btn btn-dark">Оплатить</a>
+Общая стоимость заказа : $@Model.Sum(x => x._Count * x.Stuff._Cost)
+<hr />

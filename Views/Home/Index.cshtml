@@ -1,0 +1,66 @@
+﻿@using Киберфорум.Models 
+@model IndexViewModel
+@{
+    ViewBag.Title = "Все новости";
+}
+<style>
+    @@font-face {
+        font-family: 'FontAwesome';
+        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal
+    }
+
+    .glyphicon {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .glyphicon-chevron-right:before {
+        content: "\f054";
+    }
+
+    .glyphicon-chevron-left:before {
+        content: "\f053";
+    }
+</style>
+<h1>ИГРОВЫЕ НОВОСТИ</h1>
+<table class="table">
+    @foreach (var a in Model.Articles)
+    {
+    <tr >
+        <td>
+            <a asp-action="Details" asp-controller="Home" asp-route-id="@a.Id"><img style='width:200px; height:120px; border-radius: 15px' src="/img/news/@a.ImageUrl" /></a>
+        </td>
+        <td><a style='font-size:20px;' asp-action="Details" asp-controller="Home" asp-route-id="@a.Id">@a.Title</a></td>
+        @if (User.IsInRole("admin"))
+        {
+            <td>
+                <a asp-action="Delete" asp-controller="Home" asp-route-id="@a.Id" class="btn btn-dark">Удалить</a>
+            </td>
+        }
+    </tr>
+    }
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

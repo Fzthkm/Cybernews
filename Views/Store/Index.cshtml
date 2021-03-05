@@ -1,0 +1,101 @@
+﻿@using Киберфорум.Models
+@model StoreViewModel
+
+@{
+    ViewData["Title"] = "Магазин";
+}
+
+<h1>Магазин</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a class="btn btn-dark" asp-controller="Store" asp-action="Create">
+            Добавить товар
+        </a>
+    </p>
+}
+<form method="get">
+    <div class="form-inline">
+        <label>Товар: </label>
+        <input style="margin:5px;" name="name" value="@Model.StuffFilterViewModel.SelectedName" class="form-control" />
+        <span> </span>
+        <input type="submit" value="Поиск" class="btn btn-outline-dark" />
+    </div>
+    <br />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Изображение
+            </th>
+            <th>
+                Товар
+            </th>
+            <th>
+                Стоимость, $
+            </th>
+            <th>
+                Рейтинг
+            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th></th>
+                <th></th>
+                <th></th>
+            }
+            @if (User.IsInRole("admin"))
+            {
+                <th>
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Stuffs)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/stuff/@item.ImageUrl" style='width:100px; height:80px;' />
+                </td>
+                <td>
+                    <a asp-action="Details" asp-controller="Store" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item._Name)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item._Cost)
+                </td>
+                @if (item.Reviews.Count > 0)
+                {
+                    <td>
+                        <span>@(item.Reviews.Sum(x => x.Rate)/(double)item.Reviews.Count)</span>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <span>Нет рейтинга</span>
+                    </td>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <a asp-action="AddToCard" asp-controller="Store" asp-route-id="@item.Id">
+                            <img src="~/img/btnImage/add.png" style="width:32px;height:32px;" />
+                        </a>
+                    </td>
+                }
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-controller="Store" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Редактировать</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Store" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-dark">Удалить </a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
